@@ -1,0 +1,239 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>JSONDocDump</name>
+    </assembly>
+    <members>
+        <member name="T:XMLToJSONDocDump.JSONDocDump">
+            <summary>
+            Utility class for exporting a specialized JSON dump of an object model. Produces a JSON-typed object example and a table of all the comments included in the C# assembly for classes and their members.
+            </summary>
+        </member>
+        <member name="M:XMLToJSONDocDump.JSONDocDump.CreateDumpFile(System.Reflection.Assembly,System.String)">
+            <summary>
+            Writes a dump file of the given assembly to the given path.
+            </summary>
+            <param name="assemblyToDump">The assembly to create the dump file for.</param>
+            <param name="outputFilePath">The location of the text file to write.</param>
+        </member>
+        <member name="M:XMLToJSONDocDump.JSONDocDump.ShouldIncludeMember(System.Reflection.MemberInfo)">
+            <summary>
+            Whether or not to include a member in the JSON object description.
+            </summary>
+            <param name="reflectionMemberInfo">The reflected member info of the member to include or not.</param>
+            <returns></returns>
+        </member>
+        <member name="M:XMLToJSONDocDump.JSONDocDump.ShouldIncludeInDocTable(XMLToJSONDocDump.MemberSummary,System.Reflection.MemberInfo)">
+            <summary>
+            Whether or not to include a member in the table of summary descriptions.
+            </summary>
+            <param name="summary">The summary description from the XML doc file.</param>
+            <param name="reflectionMemberInfo">The reflected member info of the member to include or not.</param>
+            <returns></returns>
+        </member>
+        <member name="M:XMLToJSONDocDump.JSONDocDump.ShouldIncludeType(System.Type)">
+            <summary>
+            Whether or not a type should be included in the dump.
+            </summary>
+            <param name="type">The type to include or not.</param>
+            <returns></returns>
+        </member>
+        <member name="M:XMLToJSONDocDump.JSONDocDump.MakeDocumentationForType(System.Type)">
+            <summary>
+            Writes all the lines of documentation needed for the JSON example and properties table for an object of the given type to the internal string builder, _builder.
+            </summary>
+            <param name="t">The type to produce documentation for.</param>
+        </member>
+        <member name="M:XMLToJSONDocDump.JSONDocDump.MakeJSONSampleForType(System.Type,System.Collections.Generic.List{System.Reflection.MemberInfo})">
+            <summary>
+            Makes a JSON sample object with JavaScript types instead of values for each property.
+            </summary>
+            <param name="t">The type to make the JSON sampe of.</param>
+            <param name="reflectedMembers">The public fields and properties of the member.</param>
+            <returns></returns>
+        </member>
+        <member name="M:XMLToJSONDocDump.JSONDocDump.GetJSONSampleLine(System.Reflection.MemberInfo,System.String)">
+            <summary>
+            Overridable function for generating the line for the example JSON for a given member.
+            </summary>
+            <param name="reflectedMember">The relfected member of a class.</param>
+            <param name="typeEquivalent">The JavaScript type equivalent for the member.</param>
+            <returns></returns>
+        </member>
+        <member name="M:XMLToJSONDocDump.JSONDocDump.MakeDocumentationTableForType(System.Type,System.Collections.Generic.List{XMLToJSONDocDump.MemberSummary},System.Collections.Generic.List{System.Reflection.MemberInfo})">
+            <summary>
+            Makes a table of documentation pulled from the XML C# comments in the assembly for the given type.
+            </summary>
+            <param name="t">The type to make the documentation table for.</param>
+            <param name="summaryDescriptions">The list of all the XML comments for the members of the type.</param>
+            <param name="reflectedMembers">The list of all the reflected properties and fields of the type.</param>
+            <returns></returns>
+        </member>
+        <member name="M:XMLToJSONDocDump.JSONDocDump.GetTableLine(System.Reflection.MemberInfo,System.String,System.String)">
+            <summary>
+            Overrideable function for making a line in the documentation table for a given member of a type.
+            </summary>
+            <param name="reflectedMember">The field or property info object describing the member we're writing a line for.</param>
+            <param name="summary">The XML comment summary made for the line.</param>
+            <param name="jsType">The JavaScript equivalent type for the member.</param>
+            <returns></returns>
+        </member>
+        <member name="M:XMLToJSONDocDump.JSONDocDump.GetMemberSummariesForType(System.Type,System.Boolean)">
+            <summary>
+            Queries the list of members in the assembly and pulls out the summary for the type and all of it's XML documented members.
+            </summary>
+            <param name="t"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XMLToJSONDocDump.JSONDocDump.GetReflectedMembersForType(System.Type)">
+            <summary>
+            Gets all the public fields and properties belonging to a given type.
+            </summary>
+            <param name="t">The type to get the public fields and properties of.</param>
+            <returns></returns>
+        </member>
+        <member name="M:XMLToJSONDocDump.JSONDocDump.GetJavaScriptTypeEquivalent(System.Type)">
+            <summary>
+            Gets the JavaScript type equivalent to a C# type.
+            </summary>
+            <param name="t">The type to get the JavaScript type for.</param>
+            <returns></returns>
+        </member>
+        <member name="T:XMLToJSONDocDump.SDONDocDump">
+            <summary>
+            Class for specifically doing a dump of the SDON assembly.
+            </summary>
+        </member>
+        <member name="T:XMLToJSONDocDump.MemberType">
+            <summary>
+            Enum for listing what type of object a MemberSummary is based on the XML file.
+            </summary>
+        </member>
+        <member name="F:XMLToJSONDocDump.MemberType.None">
+            <summary>
+            Default.
+            </summary>
+        </member>
+        <member name="F:XMLToJSONDocDump.MemberType.Property">
+            <summary>
+            Member is a property.
+            </summary>
+        </member>
+        <member name="F:XMLToJSONDocDump.MemberType.Type">
+            <summary>
+            Member is a type definition.
+            </summary>
+        </member>
+        <member name="F:XMLToJSONDocDump.MemberType.Field">
+            <summary>
+            Member is a field.
+            </summary>
+        </member>
+        <member name="F:XMLToJSONDocDump.MemberType.Method">
+            <summary>
+            Member is a method.
+            </summary>
+        </member>
+        <member name="T:XMLToJSONDocDump.MemberSummary">
+            <summary>
+            A container for the XML comment made on a class or member.
+            </summary>
+        </member>
+        <member name="P:XMLToJSONDocDump.MemberSummary.Name">
+            <summary>
+            The name of the member or class.
+            </summary>
+        </member>
+        <member name="P:XMLToJSONDocDump.MemberSummary.NamespacePath">
+            <summary>
+            A string composed of the namespace of the declaring class and any parent nested classes. The full "Path" to get to a member in a given namespace.
+            </summary>
+        </member>
+        <member name="P:XMLToJSONDocDump.MemberSummary.Description">
+            <summary>
+            The XML summary description of the member or class.
+            </summary>
+        </member>
+        <member name="P:XMLToJSONDocDump.MemberSummary.MemberType">
+            <summary>
+            The type of member.
+            </summary>
+        </member>
+        <member name="T:XMLToJSONDocDump.MethodDefinition">
+            <summary>
+            Container for the comments made on a method.
+            </summary>
+        </member>
+        <member name="P:XMLToJSONDocDump.MethodDefinition.Parameters">
+            <summary>
+            The XML comments on the parameters of the method.
+            </summary>
+        </member>
+        <member name="T:XMLToJSONDocDump.MethodDefinition.MethodParameter">
+            <summary>
+            Container for the comments made on a parameter to a method.
+            </summary>
+        </member>
+        <member name="P:XMLToJSONDocDump.MethodDefinition.MethodParameter.ParamName">
+            <summary>
+            The name of the parameter.
+            </summary>
+        </member>
+        <member name="P:XMLToJSONDocDump.MethodDefinition.MethodParameter.ParamDescription">
+            <summary>
+            The description of the parameter.
+            </summary>
+        </member>
+        <member name="P:XMLToJSONDocDump.MethodDefinition.MethodParameter.ParamType">
+            <summary>
+            The type of the parameter.
+            </summary>
+        </member>
+        <member name="T:XMLToJSONDocDump.XMLDocParser">
+            <summary>
+            Utility class for scraping a XML documentation file and organizing its contents into an array of easily-queryable objects.
+            </summary>
+        </member>
+        <member name="P:XMLToJSONDocDump.XMLDocParser.Members">
+            <summary>
+            All of the comments made on all members in an assembly.
+            </summary>
+        </member>
+        <member name="M:XMLToJSONDocDump.XMLDocParser.GetXMLComments(System.Reflection.Assembly)">
+            <summary>
+            Reads the XML documentation file for the assembly and parses its contents into a list of easil-queryable objects.
+            </summary>
+            <param name="assembly">The assembly to get the XML contents for.</param>
+        </member>
+        <member name="M:XMLToJSONDocDump.XMLDocParser.GetDocumentationXMLFilePath(System.Reflection.Assembly)">
+            <summary>
+            Gets the file path of the XML documentation file for the given assembly.
+            </summary>
+            <param name="assembly">The assembly to get the XML documentation file path for.</param>
+            <returns></returns>
+        </member>
+        <member name="M:XMLToJSONDocDump.XMLDocParser.ReadXMLDoc(System.String)">
+            <summary>
+            Reads the assembly's XML documentation and parses out the names and summary descriptions of each member.
+            </summary>
+            <param name="xmlDocFilePath"></param>
+        </member>
+        <member name="M:XMLToJSONDocDump.XMLDocParser.ProcessXMLData(System.String,System.String,System.Xml.XmlReader)">
+            <summary>
+            Turns an entry from a XML documentation file into a MemberSummary object.
+            </summary>
+            <param name="name">The value of the "Name" attribute from the XML documentation.</param>
+            <param name="summary">The summary string from the XML documentation.</param>
+            <param name="reader">The XML reader that is reading the XML file.</param>
+            <returns></returns>
+        </member>
+        <member name="M:XMLToJSONDocDump.XMLDocParser.ReadMethodParameters(XMLToJSONDocDump.MemberSummary,System.Xml.XmlReader)">
+            <summary>
+            Walks through the parameters for a method in the xml documentation file, parses them, and adds them as MethodDefinition.MethodParameter to the methodInfo's parameter list.
+            </summary>
+            <param name="methodInfo">The data from the XML file that pertains to the method and its signature.</param>
+            <param name="reader">The XML reader that is reading the </param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>

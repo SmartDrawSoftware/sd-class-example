@@ -1,0 +1,7 @@
+C:\SRC\DEV\Community\DataToDiagram\SDON\Framework\DotNet\SDONDocDump\JSONDocDump\bin\Debug\JSONDocDump.xml
+C:\SRC\DEV\Community\DataToDiagram\SDON\Framework\DotNet\SDONDocDump\JSONDocDump\bin\Debug\JSONDocDump.dll
+C:\SRC\DEV\Community\DataToDiagram\SDON\Framework\DotNet\SDONDocDump\JSONDocDump\bin\Debug\JSONDocDump.pdb
+C:\SRC\DEV\Community\DataToDiagram\SDON\Framework\DotNet\SDONDocDump\JSONDocDump\obj\Debug\XMLToJSONDocDump.csproj.CoreCompileInputs.cache
+C:\SRC\DEV\Community\DataToDiagram\SDON\Framework\DotNet\SDONDocDump\JSONDocDump\obj\Debug\JSONDocDump.dll
+C:\SRC\DEV\Community\DataToDiagram\SDON\Framework\DotNet\SDONDocDump\JSONDocDump\obj\Debug\JSONDocDump.pdb
+C:\SRC\DEV\Community\DataToDiagram\SDON\Framework\DotNet\SDONDocDump\JSONDocDump\obj\Debug\XMLToJSONDocDump.csprojResolveAssemblyReference.cache
